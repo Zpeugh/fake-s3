@@ -23,25 +23,6 @@ module FakeS3
     method_option :license, :type => :string, :desc => 'Your license key, available at https://supso.org/projects/fake-s3'
 
     def server
-      license_key = options[:license]
-      if license_key.nil?
-        license_message = """
-======================
-As of version 1.3, Fake S3 requires a license key passed with --license YOUR_LICENSE_KEY.
-Please fix this before September 18, 2018.
-You can get a license at:
-https://supso.org/projects/fake-s3
-======================
-
-"""
-        licensing_required = Time.now > Time.utc(2018, 9, 19)
-        if licensing_required
-          abort license_message
-        else
-          warn license_message
-        end
-      end
-      
       store = nil
       if options[:root]
         root = File.expand_path(options[:root])
